@@ -4,13 +4,12 @@ import HiddenAbilitySpawns.commands.ReloadCommand
 import HiddenAbilitySpawns.config.Configuration
 import HiddenAbilitySpawns.config.YamlConfiguration
 import HiddenAbilitySpawns.events.SpawnEvent
+import HiddenAbilitySpawns.util.HiddenAbilitySpawnsLogger
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.server.MinecraftServer
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -48,16 +47,16 @@ class HiddenAbilitySpawns : ModInitializer {
 
 			// Register events that require the server instance
 			registerEventListeners()
-			LOGGER.info("Server instance captured and event listeners registered!")
+			HiddenAbilitySpawnsLogger.info("Server instance captured and event listeners registered!")
 		}
 	}
 
 	fun configManager() {
 		mainConfig = getConfig("config.yml")
 		if (mainConfig == null) {
-			LOGGER.error("Failed to load main configuration. Default values will be used.")
+			HiddenAbilitySpawnsLogger.error("Failed to load main configuration. Default values will be used.")
 		} else {
-			LOGGER.info("Configuration loaded successfully.")
+			HiddenAbilitySpawnsLogger.info("Configuration loaded successfully.")
 		}
 	}
 
@@ -96,20 +95,19 @@ class HiddenAbilitySpawns : ModInitializer {
 	 * Displays an ASCII Art representation of the mod's name in the log. -- didn't get to it :(
 	 */
 	private fun displayAsciiArt() {
-		LOGGER.info("HiddenAbilitySpawns Loaded Successfully")
+		HiddenAbilitySpawnsLogger.info("HiddenAbilitySpawns Loaded Successfully")
 	}
 
 	private fun registerEventListeners() {
 		if (mainConfig != null && server != null) {
 			SpawnEvent()
 		} else {
-			LOGGER.error("Failed to register events: mainConfig or server is null.")
+			HiddenAbilitySpawnsLogger.error("Failed to register events: mainConfig or server is null.")
 		}
-		LOGGER.info("Event listeners registered!")
+		HiddenAbilitySpawnsLogger.info("Event listeners registered!")
 	}
 
 	companion object {
-		val LOGGER: Logger = LoggerFactory.getLogger("HiddenAbilitySpawns")
 		private var mainConfig: Configuration? = null
 
 		fun getMainConfig(): Configuration? {
@@ -131,9 +129,9 @@ class HiddenAbilitySpawns : ModInitializer {
 				mainConfig = YamlConfiguration.loadConfiguration(
 					HiddenAbilitySpawns().getOrCreateConfigurationFile("config.yml")
 				)
-				LOGGER.info("HiddenAbilitySpawns configuration reloaded successfully.")
+				HiddenAbilitySpawnsLogger.info("HiddenAbilitySpawns configuration reloaded successfully.")
 			} catch (e: Exception) {
-				LOGGER.error("Failed to reload configuration: ${e.message}", e)
+				HiddenAbilitySpawnsLogger.error("Failed to reload configuration: ${e.message}", e)
 				throw e
 			}
 		}

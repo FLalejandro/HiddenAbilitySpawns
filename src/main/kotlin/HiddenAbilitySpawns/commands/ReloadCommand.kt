@@ -9,7 +9,6 @@ import net.minecraft.server.command.CommandManager
 import net.minecraft.server.command.ServerCommandSource
 
 object ReloadCommand {
-    // Permission node for the `/hiddenabilityspawns reload` command
     const val RELOAD_PERMISSION_NODE: String = "hiddenabilityspawns.reload"
 
     /**
@@ -20,10 +19,9 @@ object ReloadCommand {
     fun register(dispatcher: CommandDispatcher<ServerCommandSource>) {
         dispatcher.register(
             CommandManager.literal("hiddenabilityspawns")
-                .then(
-                    CommandManager.literal("reload")
-                        .requires(Permissions.require(RELOAD_PERMISSION_NODE, 2))
-                        .executes { ctx -> reloadConfigs(ctx) }
+                .then(CommandManager.literal("reload")
+                    .requires(Permissions.require(RELOAD_PERMISSION_NODE, 2))
+                    .executes { ctx -> reloadConfigs(ctx) }
                 )
         )
     }

@@ -29,8 +29,5 @@
 		"fabric-api": "*",
 		"fabricloader": ">=0.14.21",
 		"fabric-language-kotlin": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }

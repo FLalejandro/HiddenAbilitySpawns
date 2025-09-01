@@ -1,6 +1,7 @@
 package HiddenAbilitySpawns.events
 
 import HiddenAbilitySpawns.HiddenAbilitySpawns
+import HiddenAbilitySpawns.util.HiddenAbilitySpawnsLogger
 import HiddenAbilitySpawns.util.Utils
 import com.cobblemon.mod.common.api.Priority
 import com.cobblemon.mod.common.api.events.CobblemonEvents
@@ -28,7 +29,7 @@ class SpawnEvent {
 
                 // Check if the Pokémon actually ended up with a Hidden Ability
                 if (utils.pokemonHasHiddenAbility(pokemon)) {
-                    HiddenAbilitySpawns.LOGGER.info(
+                    HiddenAbilitySpawnsLogger.info(
                         "${pokemon.species.name} spawned with its hidden ability: ${pokemon.ability.name}"
                     )
                 }
